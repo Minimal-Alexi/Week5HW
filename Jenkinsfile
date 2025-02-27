@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Minimal-Alexi/Week5HW.git'
+                git branch: 'main', url: 'https://github.com/Minimal-Alexi/Week5HW.git'
             }
         }
         stage('Build') {
