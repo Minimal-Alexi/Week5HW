@@ -28,7 +28,12 @@ pipeline {
         }
         stage('Publish Coverage Report') {
             steps {
-                recordCoverage()
+                    recordCoverage(
+                                    tool: 'JaCoCo', // Use the configured JaCoCo tool
+                                    execPattern: '**/target/jacoco.exec', // Path to the JaCoCo execution data
+                                    classPattern: '**/target/classes',   // Path to the compiled classes
+                                    sourcePattern: '**/src/main/java'    // Path to the source code
+                                )
             }
         }
     }
