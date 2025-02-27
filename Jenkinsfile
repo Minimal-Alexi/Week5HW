@@ -29,10 +29,12 @@ pipeline {
         stage('Publish Coverage Report') {
             steps {
                     recordCoverage(
-                                    tool: 'JaCoCo', // Use the configured JaCoCo tool
-                                    execPattern: '**/target/jacoco.exec', // Path to the JaCoCo execution data
-                                    classPattern: '**/target/classes',   // Path to the compiled classes
-                                    sourcePattern: '**/src/main/java'    // Path to the source code
+                                    tools: [[parser: 'JACOCO']],
+                                            id: 'jacoco', name: 'JaCoCo Coverage',
+                                            sourceCodeRetention: 'EVERY_BUILD',
+                                            qualityGates: [
+                                                    [threshold: 60.0, metric: 'LINE', baseline: 'PROJECT', unstable: true],
+                                                    [threshold: 60.0, metric: 'BRANCH', baseline: 'PROJECT', unstable: true]])
                                 )
             }
         }
